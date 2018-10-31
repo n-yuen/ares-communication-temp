@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 
-char DELIM[] = {0xff, 0xff, 0xff, 0xff};
+char DELIM[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
 
 struct DATA_TYPE {
 	float flt1;
@@ -32,5 +32,4 @@ void loop() {
 	for (int i = 0; i < DATA_BYTE_COUNT; i++) {
 		XBee.write(*(start + i));
 	}
-	XBee.write(DELIM);
 }

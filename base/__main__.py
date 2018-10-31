@@ -12,7 +12,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from digi.xbee.devices import XBeeDevice
+from digi.xbee.devices import XBeeDevice, XBeeMessage
+from parse_struct import parse_struct
 
 # TODO: Replace with the serial port where your local module is connected to. 
 PORT = "/dev/tty.usbserial-DN04AJCW"
@@ -21,19 +22,18 @@ BAUD_RATE = 9600
 
 
 def main():
-    print(" +-----------------------------------------+")
-    print(" | XBee Python Library Receive Data Sample |")
-    print(" +-----------------------------------------+\n")
+    print(" | Signifigantly Likely to Blow Up |")
 
     device = XBeeDevice(PORT, BAUD_RATE)
 
     try:
         device.open()
-        print ("device opened!!!!!!!!!11111 !")
 
-        def data_receive_callback(xbee_message):
-            print("From %s >> %s" % (xbee_message.remote_device.get_64bit_addr(),
-                                     xbee_message.data.decode()))
+        def data_receive_callback(xbee_message: XBeeMessage):
+            info = parse_struct(xbee_message.data)
+            if info is not None:
+                for data in info:
+                    print(data, end ="\t")
 
         device.add_data_received_callback(data_receive_callback)
 
