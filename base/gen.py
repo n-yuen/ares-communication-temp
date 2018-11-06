@@ -1,0 +1,3 @@
+STRUCT_ORDER = "<fff"
+STRUCT_LENGTH = 12
+STRUCT_FIELDS = "imuX,imuY,imuZ"

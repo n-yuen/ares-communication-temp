@@ -14,6 +14,7 @@
 
 from digi.xbee.devices import XBeeDevice, XBeeMessage
 from parse_struct import parse_struct
+from gen import STRUCT_FIELDS
 
 # TODO: Replace with the serial port where your local module is connected to. 
 PORT = "/dev/tty.usbserial-DN04AJCW"
@@ -22,7 +23,7 @@ BAUD_RATE = 9600
 
 
 def main():
-    print(" | Signifigantly Likely to Blow Up |")
+    print(STRUCT_FIELDS)
 
     device = XBeeDevice(PORT, BAUD_RATE)
 

@@ -1,0 +1,4 @@
+name,type
+imuX,float
+imuY,float
+imuZ,float

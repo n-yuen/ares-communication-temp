@@ -14,12 +14,13 @@ through the XBee antenna
 You can check for a new message by recieving 64 high bits in a row.
 
 ## Data Order
-ALWAYS BE UPDATING THIS SECTION
-1. arbitrary float
-2. arbitrary float
-3. arbitrary float
-4. arbitrary float
-5. arbitrary float
-6. arbitrary float
-7. arbitrary float
-8. arbitrary float
+See [data_order.csv](data_order.csv) for a list of fields sent
+
+## Build System
+Execute `./build.py` with the CWD being the root directory of both projects. `build.py` will:
+1. Read in `data_order.csv` to get a list of fields and their names/types, turning them into a struct `data`
+2. Overwrite `base/gen.py` with the length to allocate for a buffer for `data`, and the order of the fields of `data` to pass into the `struct` module from python
+3. Overwrite `rocket/gen.h` with the appropriate C struct that represents `data`
+4. Overwrite `rocket/gen.ino` with an appropriate `updateData()` method
+
+**ANYTHING NAMED GEN.\* IS SUBJECT TO OVERWRITING**

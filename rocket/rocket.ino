@@ -1,18 +1,14 @@
 #include <SoftwareSerial.h>
+#include "gen.h"
 
+/**
+ * Probably don't need to touch this, write all the polling from arduino 2 in reads.ino
+**/
+
+extern void updateData();
 char DELIM[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
-
-struct DATA_TYPE {
-	float flt1;
-	float flt2;
-	float flt3;
-	float flt4;
-	float flt5;
-	float flt6;
-	float flt7;
-	float flt8;
-} DATA;
-const int DATA_BYTE_COUNT = sizeof(DATA);
+char *dataStart = (char*)&data;
+const int DATA_BYTE_COUNT = sizeof(data);
 
 //For Atmega328P's
 // XBee's DOUT (TX) is connected to pin 2 (Arduino's Software RX)
@@ -27,9 +23,9 @@ void setup() {
 }
 
 void loop() {
+	updateData();
 	XBee.write(DELIM);
-	char *start = (char*)&DATA;
 	for (int i = 0; i < DATA_BYTE_COUNT; i++) {
-		XBee.write(*(start + i));
+		XBee.write(*(dataStart + i));
 	}
 }

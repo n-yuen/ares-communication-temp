@@ -1,10 +1,8 @@
 from typing import List
 from struct import unpack
+from gen import STRUCT_ORDER, STRUCT_LENGTH
 
-STRUCT_FORMAT = "<"+(8*"f") #https://docs.python.org/3/library/struct.html#struct-alignment
-FLOAT_SIZE = 4
-parse_buffer: bytearray = [0] * (8 * FLOAT_SIZE) #8 to store 8 floats, 2 to store delim
-BUFFER_SIZE = len(parse_buffer)
+parse_buffer: bytearray = [0] * STRUCT_LENGTH
 contig_ff = 0 #counts the number of contiguous FF's
 write_index = 0 #counts which index to write the next byte into
 
@@ -12,7 +10,7 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
     global write_index, contig_ff
     tuple_list = []
     for b in bytes:
-        if write_index < BUFFER_SIZE:
+        if write_index < STRUCT_LENGTH:
             parse_buffer[write_index] = b
             write_index += 1
         if b == 255: #is FF
@@ -21,10 +19,8 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
                 #message complete, begind serializing
                 tuple_list.append(
                     unpack(
-                        STRUCT_FORMAT, 
-                        bytearray (
-                            parse_buffer[0:BUFFER_SIZE]
-                        )
+                        STRUCT_ORDER, 
+                        parse_buffer
                     )
                 )
                 contig_ff = 0
