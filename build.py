@@ -2,6 +2,7 @@
 import sys
 import os
 from typing import List, Tuple
+from struct_codes import STRUCT_CODES
 
 def capitalizeFirstChar(s: str):
     return s[0].upper()+s[1:] # when they tell you it's just like pseudocode
@@ -17,17 +18,7 @@ print("READING FROM "+FILE_PATH)
 structOrder = "<" #Will store the byte order for the struct module (https://docs.python.org/3/library/struct.html#struct-alignment), prefix with < for little-endian
 structSize = 0
 structFields = ""
-# Constants from the python documentation
-STRUCT_CODES = { #SIZES WILL DIFFER BASED ON ARDUINO UNO OR DUE, values given are for DUE
-    "float": ("f", 4),
-    "double": ("d", 8),
-    "int": ("i", 4),
-    "unsigned int": ("I", 4),
-    "char": ("c", 1),
-    "byte": ("B", 1),
-    "short": ("h", 2),
-    "unsigned short": ("H", 2)
-}
+
 
 # Generate INO file
 structDec = "struct DATA_TYPE {\n"
