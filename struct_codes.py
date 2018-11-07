@@ -5,8 +5,9 @@
 STRUCT_CODES = { 
     "float": ("f", 4),
     "double": ("d", 8),
-    "int": ("i", 2),
-    "unsigned int": ("I", 2),
+    "int": ("h", 2),
+    "unsigned int": ("H", 2),
     "char": ("c", 1),
     "byte": ("B", 1)
 }
+# A UNO's int corresponds to python's short
