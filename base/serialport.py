@@ -26,7 +26,8 @@ ser = serial.Serial(PORT, BAUD_RATE, timeout=0)
 def main():
     print(STRUCT_FIELDS)
     try:
-        ser.open()
+        if not ser.isOpen:
+            ser.open()
         while True:
             byteList = ser.read_all()
             data = parse_struct(byteList)
