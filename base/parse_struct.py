@@ -2,7 +2,7 @@ from typing import List
 from struct import unpack
 from gen import STRUCT_ORDER, STRUCT_LENGTH
 
-parse_buffer: bytearray = [0] * STRUCT_LENGTH
+parse_buffer: bytearray = bytearray(STRUCT_LENGTH)
 contig_ff = 0 #counts the number of contiguous FF's
 write_index = 0 #counts which index to write the next byte into
 
@@ -16,7 +16,7 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
         if b == 255: #is FF
             contig_ff += 1
             if contig_ff == 8:
-                #message complete, begind serializing
+                #message complete, begin deserializing
                 tuple_list.append(
                     unpack(
                         STRUCT_ORDER, 

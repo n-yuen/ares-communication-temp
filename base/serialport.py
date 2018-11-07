@@ -12,7 +12,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from digi.xbee.devices import XBeeDevice, XBeeMessage
+import serial
 from parse_struct import parse_struct
 from gen import STRUCT_FIELDS
 
@@ -21,28 +21,20 @@ PORT = "COM6" #"/dev/tty.usbserial-DN04AJCW"
 # TODO: Replace with the baud rate of your local module.
 BAUD_RATE = 9600
 
+ser = serial.Serial(PORT, BAUD_RATE, timeout=0)
+
 def main():
     print(STRUCT_FIELDS)
-
-    device = XBeeDevice(PORT, BAUD_RATE)
-
     try:
-        device.open()
-
-        def data_receive_callback(xbee_message: XBeeMessage):
-            print(xbee_message.timestamp)
-            #info = parse_struct(xbee_message.data)
-            #if info is not None:
-            #    for data in info:
-            #        print(data, end ="\t")
-
-        device.add_data_received_callback(data_receive_callback)
-
-        input()
-
+        ser.open()
+        while True:
+            byteList = ser.read_all()
+            data = parse_struct(byteList)
+            for line in data:
+                print(line)
     finally:
-        if device is not None and device.is_open():
-            device.close()
+        if ser is not None and ser.is_open:
+            ser.close()
 
 if __name__ == '__main__':
     main()
