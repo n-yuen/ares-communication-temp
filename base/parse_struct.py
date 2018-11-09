@@ -12,13 +12,10 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
     for b in bytes:
         if write_index < STRUCT_LENGTH:
             parse_buffer[write_index] = b
-            write_index = write_index + 1
-        if b == 255:
-            contig_ff = contig_ff + 1
-        else:
-            contig_ff = 0
-        if contig_ff == 8:
-            if write_index == STRUCT_LENGTH:
+            write_index += 1
+        elif b == 255:
+            contig_ff += 1
+            if contig_ff == 8 and write_index == STRUCT_LENGTH:
                 if not throwaway:
                     tuple_list.append(
                         unpack(STRUCT_ORDER, parse_buffer)
@@ -26,6 +23,10 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
                 throwaway = False
                 contig_ff = 0 
                 write_index = 0
+        else:
+            contig_ff = 0
+        
+            
     return tuple_list
 
         
