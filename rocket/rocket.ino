@@ -7,7 +7,8 @@
 
 extern void updateData();
 char DELIM[] = {0xff, 0xff, 0xff, 0xff};
-char *dataStart = (char*)&data;
+const int DELIM_LENGTH = 4;
+char *dataStart = (char *)&data;
 const int DATA_BYTE_COUNT = sizeof(data);
 
 //For Atmega328P's
@@ -20,16 +21,17 @@ void setup() {
 	// for the XBee. Make sure the baud rate matches the config
 	// setting of your XBee.
 	XBee.begin(9600);
+	XBee.flush();
 }
 
 void loop() {
 	updateData();
-	XBee.write(DELIM);
+	XBee.write(DELIM, DELIM_LENGTH);
+
 	for (int i = 0; i < DATA_BYTE_COUNT; i++) {
 		XBee.write(*(dataStart + i));
-		if(i % 4 == 0) {
-      		delay(1); //apply a pause every 4 bytes to keep the write buffer from overflowing
-    	}
+		if (i % 4 == 0) {
+			delay(1); //apply a pause every 4 bytes to keep the write buffer from overflowing
+		}
 	}
-	delay(1);
 }

@@ -17,7 +17,7 @@ from parse_struct import parse_struct
 from gen import STRUCT_FIELDS
 
 # TODO: Replace with the serial port where your local module is connected to. 
-PORT = "COM6" #"/dev/tty.usbserial-DN04AJCW"
+PORT = "/dev/tty.usbserial-DN04AJCW" #"/dev/tty.usbserial-DN04AJCW" "306" 
 # TODO: Replace with the baud rate of your local module.
 BAUD_RATE = 9600
 
