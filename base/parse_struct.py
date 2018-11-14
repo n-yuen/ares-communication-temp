@@ -15,7 +15,7 @@ def parse_struct(bytes: bytearray) -> List[tuple]:
     for b in bytes:
         if write_index < STRUCT_LENGTH and encountered8:
             parse_buffer[write_index] = b
-            write_index += 1
+            write_index +=1
         elif b == 255:
             contig_ff += 1
             if contig_ff >= 4 and write_index == STRUCT_LENGTH:
