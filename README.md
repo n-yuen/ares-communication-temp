@@ -8,7 +8,7 @@ through the XBee antenna
 
 | Representation | Description |
 | --- | --- |
-| 8 High Bytes | MESSAGE_BEGIN |
+| 4 High Bytes | MESSAGE_BEGIN |
 | arbitrary bits | DATA (see data order) |
 
 You can check for a new message by recieving 64 high bits in a row.

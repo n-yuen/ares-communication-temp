@@ -6,7 +6,7 @@
 **/
 
 extern void updateData();
-char DELIM[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff};
+char DELIM[] = {0xff, 0xff, 0xff, 0xff};
 char *dataStart = (char*)&data;
 const int DATA_BYTE_COUNT = sizeof(data);
 
@@ -27,5 +27,9 @@ void loop() {
 	XBee.write(DELIM);
 	for (int i = 0; i < DATA_BYTE_COUNT; i++) {
 		XBee.write(*(dataStart + i));
+		if(i % 4 == 0) {
+      		delay(1); //apply a pause every 4 bytes to keep the write buffer from overflowing
+    	}
 	}
+	delay(1);
 }

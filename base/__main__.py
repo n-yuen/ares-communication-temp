@@ -30,14 +30,12 @@ def main():
         device.open()
 
         def data_receive_callback(xbee_message: XBeeMessage):
-            print(xbee_message.timestamp)
-            #info = parse_struct(xbee_message.data)
-            #if info is not None:
-            #    for data in info:
-            #        print(data, end ="\t")
+            info = parse_struct(xbee_message.data)
+            if info:
+                for data in info:
+                    print(','.join(str(i) for i in data))
 
         device.add_data_received_callback(data_receive_callback)
-
         input()
 
     finally:

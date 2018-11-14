@@ -9,9 +9,8 @@ float readImuY () {
     return 2;
 }
 float readImuZ () {
-    return (float)sin(millis() / 1000 * PI);
+    return (float)sin(millis() / 2000.0);
 }
-unsigned int series = 0;
 unsigned int readSeries () {
-    return series++;
+    return millis();
 }
