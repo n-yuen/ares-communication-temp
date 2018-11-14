@@ -1,3 +1,3 @@
-STRUCT_ORDER = "<fffH"
-STRUCT_LENGTH = 14
-STRUCT_FIELDS = "imuX,imuY,imuZ,series"
+STRUCT_ORDER = "<fff"
+STRUCT_LENGTH = 12
+STRUCT_FIELDS = "imuX,imuY,imuZ"

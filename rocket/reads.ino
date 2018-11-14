@@ -11,6 +11,3 @@ float readImuY () {
 float readImuZ () {
     return (float)sin(millis() / 2000.0);
 }
-unsigned int readSeries () {
-    return millis();
-}
